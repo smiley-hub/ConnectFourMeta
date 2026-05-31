@@ -13,16 +13,7 @@ char MetaBoard::checkMetaWin(char player1, char player2) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             int index = checkboardNumber(i, j);
-
-            if (board[i][j].checkWin(player1)) {
-                winnerboard[index] = player1;
-            }
-            else if (board[i][j].checkWin(player2)) {
-                winnerboard[index] = player2;
-            }
-            else {
-                winnerboard[index] = '0';
-            }
+            winnerboard[index] = board[i][j].getStatus();
         }
     }
 

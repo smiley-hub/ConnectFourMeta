@@ -4,21 +4,25 @@
 using namespace std;
 
 // constructor to initialize the board
-Connect4Board::Connect4Board()
-    : Board(6, 7) {
+Connect4Board::Connect4Board(): Board(6, 7) {
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 7; ++j) {
             board[i][j] = '0';
         }
     }
+    status = '0';
 }
 bool Connect4Board::dropDisc(int column, char player) {
     if (column < 0 || column >= 7) {
         return false; // Invalid column
     }
+    if (status != '0') {
+        throw "This board is already finished!";
+    }
     for (int i = 5; i >= 0; --i) {
         if (board[i][column] == '0') {
             board[i][column] = player;
+            checkWin(player); // Check if the move wins the game
             return true; // Disc dropped successfully
         }
     }
@@ -30,6 +34,7 @@ bool Connect4Board::checkWin(char player) {
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 4; ++j) {
             if (board[i][j] == player && board[i][j + 1] == player && board[i][j + 2] == player && board[i][j + 3] == player) {
+                status = player;
                 return true;
             }
         }
@@ -39,6 +44,7 @@ bool Connect4Board::checkWin(char player) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 7; ++j) {
             if (board[i][j] == player && board[i + 1][j] == player && board[i + 2][j] == player && board[i + 3][j] == player) {
+                status = player;
                 return true;
             }
         }
@@ -48,6 +54,7 @@ bool Connect4Board::checkWin(char player) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 4; ++j) {
             if (board[i][j] == player && board[i + 1][j + 1] == player && board[i + 2][j + 2] == player && board[i + 3][j + 3] == player) {
+                status = player;
                 return true;
             }
         }
@@ -57,6 +64,7 @@ bool Connect4Board::checkWin(char player) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 3; j < 7; ++j) {
             if (board[i][j] == player && board[i + 1][j - 1] == player && board[i + 2][j - 2] == player && board[i + 3][j - 3] == player) {
+                status = player;
                 return true;
             }
         }
@@ -92,4 +100,8 @@ char Connect4Board::getCell(int row, int column) const {
     }
 
     return board[row][column];
+}
+
+char Connect4Board::getStatus() const {
+    return status;
 }
