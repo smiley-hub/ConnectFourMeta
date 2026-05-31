@@ -7,38 +7,49 @@ MetaBoard::MetaBoard()
     : Board('X', 'O'), board{} {
 }
 
-char MetaBoard::checkMetaWin(char player1, char player2){
-    char winnerboard [9];
+char MetaBoard::checkMetaWin(char player1, char player2) {
+    char winnerboard[9];
+
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
+            int index = checkboardNumber(i, j);
+
             if (board[i][j].checkWin(player1)) {
-                winnerboard[checkboardNumber(i, j)] = player1;
+                winnerboard[index] = player1;
             }
             else if (board[i][j].checkWin(player2)) {
-                winnerboard[checkboardNumber(i, j)] = player2;
+                winnerboard[index] = player2;
             }
             else {
-                winnerboard[checkboardNumber(i, j)] = '0'; // No winner for this board
-            }
-
-        }
-    }
-   
-//check for a winner who has won 3 in a row in the meta board. that the winner of the metboard
-
-    for (int i = 0; i < 6; ++i) {
-        if (winnerboard[i]==winnerboard[i+1] && winnerboard[i+1]==winnerboard[i+2]) {
-            if (winnerboard[i] == player1) {
-                return player1;
-            }
-            if (winnerboard[i] == player2) {
-                return player2;
+                winnerboard[index] = '0';
             }
         }
     }
-    return '0'; // No winner in the meta board
-   
 
+    int winningLines[8][3] = {
+        {0, 1, 2},
+        {3, 4, 5},
+        {6, 7, 8},
+        {0, 3, 6},
+        {1, 4, 7},
+        {2, 5, 8},
+        {0, 4, 8},
+        {2, 4, 6}
+    };
+
+    for (int i = 0; i < 8; i++) {
+        int first = winningLines[i][0];
+        int second = winningLines[i][1];
+        int third = winningLines[i][2];
+
+        if (winnerboard[first] != '0' &&
+            winnerboard[first] == winnerboard[second] &&
+            winnerboard[second] == winnerboard[third]) {
+            return winnerboard[first];
+        }
+    }
+
+    return '0';
 }
 
 
