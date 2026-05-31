@@ -9,6 +9,7 @@ MetaBoard::MetaBoard()
 
 char MetaBoard::checkMetaWin(char player1, char player2) {
     char winnerboard[9];
+    char winner;
 
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
@@ -33,14 +34,23 @@ char MetaBoard::checkMetaWin(char player1, char player2) {
         int second = winningLines[i][1];
         int third = winningLines[i][2];
 
-        if (winnerboard[first] != '0' &&
-            winnerboard[first] == winnerboard[second] &&
-            winnerboard[second] == winnerboard[third]) {
-            return winnerboard[first];
+        if (winnerboard[first] != '0' && winnerboard[first] == winnerboard[second] && winnerboard[second] == winnerboard[third]) {
+            winner = winnerboard[first];
+            if (winner == player1) {
+                return player1; // Player 1 wins
+            } else if (winner == player2) {
+                return player2; // Player 2 wins
+            }
+            else {
+                throw "Invalid winner status!";
+            }
         }
     }
+    if (isFull()){
+         return 'D'; // Tie
+        }
 
-    return '0';
+    return '0'; 
 }
 
 
@@ -84,4 +94,15 @@ void MetaBoard::displayBoard() {
 
         cout << endl; // space between meta-board rows
     }
+}
+
+bool MetaBoard::isFull() {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            if (!board[i][j].isFull()) {
+                return false; // At least one small board is not full
+            }
+        }
+    }
+    return true; // All small boards are full
 }

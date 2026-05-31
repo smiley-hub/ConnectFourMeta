@@ -14,7 +14,8 @@ class Connect4Board: public Board {
         bool isFull();  
         bool isTie();
         void displayBoard() override;
-
+        int tieBreaker();
+        
         char  getCell(int row, int col) const; // Method to get the value of a specific cell on the board
         char getStatus() const; // Method to get the current status of the board
 };

@@ -12,6 +12,7 @@ class MetaBoard: public Board {
         MetaBoard(); // Constructor to initialize the meta board
         char checkMetaWin(char player1 , char player2);
         void displayBoard() override; 
+        bool isFull();
         
 };
 

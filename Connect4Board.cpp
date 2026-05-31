@@ -13,6 +13,7 @@ Connect4Board::Connect4Board(): Board(6, 7) {
     status = '0';
 }
 bool Connect4Board::dropDisc(int column, char player) {
+    int playerWhowonThetie ;
     if (column < 0 || column >= 7) {
         return false; // Invalid column
     }
@@ -23,6 +24,10 @@ bool Connect4Board::dropDisc(int column, char player) {
         if (board[i][column] == '0') {
             board[i][column] = player;
             checkWin(player); // Check if the move wins the game
+
+            if (isTie()){
+                playerWhowonThetie = tieBreaker(); // If it's a tie, determine the winner using the tiebreaker
+            }
             return true; // Disc dropped successfully
         }
     }
@@ -88,6 +93,33 @@ bool Connect4Board::isFull() {
         }
     }
     return true; // All columns are full
+}
+
+int Connect4Board::tieBreaker(){
+    int player1Count = 0; 
+    int player2Count = 0;
+    int Rowvalue  =  7;
+
+    for (int i = 0; i < 6; ++i) { 
+        Rowvalue --;
+        for (int j = 0; j < 7; ++j) {
+            if (board[i][j] == player1) {
+                player1Count++;
+            } else if (board[i][j] == player2) {
+                player2Count++;
+            }
+        }
+    }
+    if (player1Count >player2Count) {
+        status = player1;
+        return 1; // Player 1 wins the tiebreaker
+    } else if (player2Count > player1Count) {
+        status = player2;
+        return 0; // Player 2 wins the tiebreaker
+    } else {
+        status = player1;
+        return 1; // Player 1 wins by default if the count is the same.
+    }
 }
 
 bool Connect4Board::isTie() {
