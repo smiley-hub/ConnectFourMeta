@@ -1,4 +1,6 @@
-class Connect4Board {
+
+#include "Board.h"
+class Connect4Board: public Board {
     private:
         char board[6][7]; // 6 rows and 7 columns for Connect 4
     public:

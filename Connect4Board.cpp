@@ -1,9 +1,11 @@
 #include "Connect4Board.h"
 #include <iostream>
+
 using namespace std;
 
 // constructor to initialize the board
-Connect4Board::Connect4Board() {
+Connect4Board::Connect4Board()
+    : Board(6, 7) {
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 7; ++j) {
             board[i][j] = '0';
