@@ -72,3 +72,24 @@ void Connect4Board::displayBoard() {
         cout << endl;
     }
 }
+
+bool Connect4Board::isFull() {
+    for (int j = 0; j < 7; ++j) {
+        if (board[0][j] == '0') {
+            return false; // At least one column is not full
+        }
+    }
+    return true; // All columns are full
+}
+
+bool Connect4Board::isTie() {
+    return isFull() && !checkWin(player1) && !checkWin(player2);
+}
+
+char Connect4Board::getCell(int row, int column) const {
+    if (row < 0 || row >= 6 || column < 0 || column >= 7) {
+        throw "Invalid cell position!";
+    }
+
+    return board[row][column];
+}

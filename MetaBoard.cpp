@@ -1,21 +1,20 @@
-# include "MetaBoard.h"
+#include "MetaBoard.h"
 #include <iostream>
 using namespace std;
 
 
-MetaBoard::MetaBoard() {
-    // The Connect4Board constructor will automatically initialize each board
+MetaBoard::MetaBoard()
+    : Board('X', 'O'), board{} {
 }
 
 char MetaBoard::checkMetaWin(char player1, char player2){
     char winnerboard [9];
-    int index = 0 ;
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             if (board[i][j].checkWin(player1)) {
                 winnerboard[checkboardNumber(i, j)] = player1;
             }
-            if (board[i][j].checkWin(player2)) {
+            else if (board[i][j].checkWin(player2)) {
                 winnerboard[checkboardNumber(i, j)] = player2;
             }
             else {
@@ -42,7 +41,9 @@ char MetaBoard::checkMetaWin(char player1, char player2){
 
 }
 
-int checkboardNumber(int row, int col){
+
+
+int MetaBoard::checkboardNumber(int row, int col){
     if (row == 0 && col == 0) return 0;
     if (row == 0 && col == 1) return 1;
     if (row == 0 && col == 2) return 2;
@@ -54,4 +55,31 @@ int checkboardNumber(int row, int col){
     if (row == 2 && col == 2) return 8;
     return -1; // Invalid row or column
 
+}
+
+
+void MetaBoard::displayBoard() {
+    int metaRow;
+    int metaCol;
+    int smallRow;
+    int smallCol;
+
+    for (metaRow = 0; metaRow < 3; metaRow++) {
+
+        for (smallRow = 0; smallRow < 6; smallRow++) {
+
+            for (metaCol = 0; metaCol < 3; metaCol++) {
+
+                for (smallCol = 0; smallCol < 7; smallCol++) {
+                    cout << board[metaRow][metaCol].getCell(smallRow, smallCol) << " ";
+                }
+
+                cout << "     "; // space between small boards
+            }
+
+            cout << endl;
+        }
+
+        cout << endl; // space between meta-board rows
+    }
 }
