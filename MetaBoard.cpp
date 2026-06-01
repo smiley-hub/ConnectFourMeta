@@ -120,3 +120,4 @@ char MetaBoard::getSmallBoardStatus(int row, int col) const {
         throw "Invalid board position! Row and column must be between 0 and 2.";
     }
     return board[row][col].getStatus();
+}
