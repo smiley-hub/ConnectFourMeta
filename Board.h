@@ -9,6 +9,7 @@ class Board {
         Board(char p1, char p2) : player1(p1), player2(p2) {}
         virtual ~Board() = default;
         virtual void displayBoard() = 0; // Pure virtual method to display the current state of the board
+       
 };
 
 #endif // BOARD_H

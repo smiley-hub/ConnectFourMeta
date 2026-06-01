@@ -15,7 +15,7 @@ Connect4Board::Connect4Board(): Board(6, 7) {
 bool Connect4Board::dropDisc(int column, char player) {
     int playerWhowonThetie ;
     if (column < 0 || column >= 7) {
-        return false; // Invalid column
+        throw "Invalid column! Column must be between 0 and 6.";
     }
     if (status != '0') {
         throw "This board is already finished!";

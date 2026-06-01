@@ -106,3 +106,17 @@ bool MetaBoard::isFull() {
     }
     return true; // All small boards are full
 }
+
+bool MetaBoard::dropDisc(int boardRow, int boardCol, int column, char player) {
+    if (boardRow < 0 || boardRow > 2 || boardCol < 0 || boardCol > 2) {
+        throw "Invalid board position! Row and column must be between 0 and 2.";
+        
+    }
+    return board[boardRow][boardCol].dropDisc(column, player);
+}
+
+char MetaBoard::getSmallBoardStatus(int row, int col) const {
+    if (row < 0 || row > 2 || col < 0 || col > 2) {
+        throw "Invalid board position! Row and column must be between 0 and 2.";
+    }
+    return board[row][col].getStatus();

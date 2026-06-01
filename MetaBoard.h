@@ -11,8 +11,10 @@ class MetaBoard: public Board {
         public:
         MetaBoard(); // Constructor to initialize the meta board
         char checkMetaWin(char player1 , char player2);
+        bool dropDisc(int boardRow, int boardCol, int column, char player) ; // Method to drop a disc into a specific sub-board
         void displayBoard() override; 
         bool isFull();
+        char getSmallBoardStatus(int row, int col) const; // Method to get the status of a specific small board
         
 };
 
